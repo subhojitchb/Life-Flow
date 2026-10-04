@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LifeFlow</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside id="side"><div class="logo">LifeFlow</div><nav id="nav"></nav><button class="btn ghost" id="b-theme">Toggle dark / light</button></aside>
+<header id="top"><button class="ic" id="menu" aria-label="Menu">☰</button><b>LifeFlow</b></header>
+<main>
+
+<section class="page" id="p-dashboard">
+  <h1 id="greet"></h1><p class="mut">Here's your overview for today.</p>
+  <h3>Today</h3><div class="stats" id="d-today"></div>
+  <h3>This month</h3><div class="stats" id="d-month"></div>
+  <div class="grid">
+    <div class="card"><h3>Recent transactions</h3><div id="d-tx"></div></div>
+    <div class="card"><h3>Recent journal entries</h3><div id="d-j"></div></div>
+    <div class="card"><h3>Today's routine</h3><div id="d-rt"></div></div>
+    <div class="card"><h3>Latest life insights</h3><div id="d-in"></div></div>
+    <div class="card wide"><h3>Suggested routine</h3><div id="d-sg"></div></div>
+  </div>
+</section>
+
+<section class="page" id="p-money">
+  <div class="bar"><h1>Money</h1><div><button class="btn ghost" id="b-csv">Export CSV</button> <button class="btn" id="b-addtx">+ Add transaction</button></div></div>
+  <label class="inl">Period
+    <select id="m-range"><option value="today">Today</option><option value="week">This week</option><option value="month" selected>This month</option><option value="last">Last month</option><option value="all">All time</option></select>
+  </label>
+  <div class="stats" id="m-stats"></div>
+  <div class="grid">
+    <div class="card"><h3>Spending by category</h3><div id="ch1"></div></div>
+    <div class="card"><h3>Income vs expenses</h3><div id="ch2"></div></div>
+    <div class="card wide"><h3>Spending over time</h3><div id="ch3"></div></div>
+  </div>
+  <div class="card"><div class="bar"><h3>Monthly budgets (this month)</h3><button class="btn ghost" id="b-addb">+ Set budget</button></div><div id="m-bud"></div></div>
+  <div class="card"><h3>Transactions</h3>
+    <div class="filters">
+      <input id="m-q" placeholder="Search description or category">
+      <select id="m-type"><option value="">All types</option><option>Income</option><option>Expense</option></select>
+      <select id="m-cat"></select>
+      <input id="m-date" type="date">
+      <select id="m-sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="hi">Highest amount</option><option value="lo">Lowest amount</option></select>
+    </div>
+    <div id="m-list"></div>
+  </div>
+</section>
+
+<section class="page" id="p-journal">
+  <div class="bar"><h1>Journal</h1><button class="btn" id="b-addj">+ New entry</button></div>
+  <div class="card">
+    <div class="filters">
+      <input id="j-q" placeholder="Search title, text or tags">
+      <select id="j-mood"></select>
+      <select id="j-prod"><option value="0">Any productivity</option></select>
+      <input id="j-date" type="date">
+      <select id="j-sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="hi">Highest productivity</option><option value="lo">Lowest productivity</option></select>
+    </div>
+    <div id="j-list"></div>
+  </div>
+</section>
+
+<section class="page" id="p-routine">
+  <div class="bar"><h1>Routine</h1><button class="btn" id="b-adda">+ Log activity</button></div>
+  <div class="grid">
+    <div class="card"><h3>Daily timeline</h3><label class="inl">Day <input id="r-tdate" type="date"></label><div id="r-tl"></div></div>
+    <div class="card"><h3>Routine analysis</h3><div id="r-an"></div></div>
+    <div class="card"><h3>Recommendations</h3><div id="r-rec"></div></div>
+    <div class="card"><h3>Suggested routine</h3><div id="r-sg"></div></div>
+  </div>
+  <div class="card"><h3>Activities</h3>
+    <div class="filters">
+      <select id="r-cat"></select>
+      <input id="r-date" type="date">
+      <select id="r-sort"><option value="chr">Chronological</option><option value="rev">Reverse chronological</option><option value="long">Longest duration</option><option value="short">Shortest duration</option></select>
+    </div>
+    <div id="r-list"></div>
+  </div>
+</section>
+
+<section class="page" id="p-insights"><h1>Insights</h1><p class="mut">Based only on what you have logged.</p><div class="grid" id="i-list"></div></section>
+
+<section class="page" id="p-review"><h1>Weekly Review</h1><p class="mut">The last 7 days, including today.</p><div id="w-body"></div></section>
+
+<section class="page" id="p-settings">
+  <h1>Settings</h1>
+  <div class="card form-col">
+    <label>Currency <select id="s-cur"><option value="INR">₹ INR</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option></select></label>
+    <label>Theme <select id="s-theme"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    <label>Default expense category <select id="s-cat"></select></label>
+  </div>
+  <div class="card"><h3>Your data</h3>
+    <div class="row l">
+      <button class="btn ghost" id="s-export">Export data (JSON)</button>
+      <button class="btn ghost" id="s-import">Import data</button>
+      <input type="file" id="s-file" accept=".json,application/json" hidden>
+      <button class="btn ghost" id="s-demo">Load demo data (optional)</button>
+      <button class="btn danger" id="s-clear">Clear all data</button>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="modal"></div>
+<div id="toasts"></div>
+<script src="script.js"></script>
+</body>
+</html>
